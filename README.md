@@ -1,129 +1,115 @@
-<img width="1536" height="1024" alt="ChatGPT Image Sep 29, 2025, 02_16_49 AM" src="https://github.com/user-attachments/assets/17e7065e-791d-473f-9066-cdbde083e32e" />
+ Mini-SIEM
 
-# gwc-siem 🛡️
-
-A **mini‑SIEM** for home labs and Hacktoberfest contributions. Parses common logs (auth, nginx), detects simple security events (SSH brute force, HTTP 5xx bursts), stores alerts in SQLite, and exposes them via **FastAPI API**, **CLI**, and a **lightweight dashboard**.
-
+Mini-SIEM is a lightweight Security Information and Event Management tool built with FastAPI.  
+It parses **auth.log** and **nginx access logs**, detects security events (SSH brute-force attempts, HTTP 5xx bursts), and shows alerts in a web dashboard.
 
 ---
 
-## ✨ Features
+## Features
 
-* **Log ingestion:** Upload `auth.log` or Nginx access logs via API or UI
-* **Parsers:** Convert raw lines → structured `Event` objects
-* **Detections:** Sliding‑window brute‑force & 5xx‑burst rules (thresholds configurable in YAML)
-* **Storage:** SQLite for easy portability
-* **Dashboard:** Static HTML + JS fetch alerts from API
-* **CLI:** Local batch scanning for sample logs or offline use
+- Parse SSH auth logs and nginx access logs
+- Detect:
+  - SSH brute-force attempts
+  - HTTP 5xx bursts
+- Store events and alerts in SQLite database
+- Dashboard auto-refreshes to show latest alerts
 
 ---
 
-## 🚀 Quickstart
+## Prerequisites
 
-### 1. Clone & setup
+- Python 3.10+
+- Git (optional)
+
+---
+
+## Setup Instructions
+
+### 1️⃣ Clone Project
 
 ```bash
-git clone https://github.com/<your-username>/gwc-siem.git
-cd gwc-siem-lite
-python -m venv .venv && source .venv/bin/activate
-pip install -e .
-```
+git clone <your-repo-url>
+cd gwc-siem
+2️⃣ Create & Activate Virtual Environment
+Windows:
 
-### 2. Run API
+bash
+Copy code
+python -m venv .venv
+.venv\Scripts\activate
+Linux / MacOS:
 
-```bash
-uvicorn api.main:app --reload
-```
+bash
+Copy code
+python3 -m venv .venv
+source .venv/bin/activate
+3️⃣ Install Dependencies
+bash
+Copy code
+pip install -r requirements.txt
+Usage
+1️⃣ Parse a Log File via CLI
+bash
+Copy code
+python cli.py "path\to\nginx.log"
+Example:
 
-Visit: [http://127.0.0.1:8000](http://127.0.0.1:8000)
+bash
+Copy code
+python cli.py "C:\Users\KRUSHNALI\Downloads\nginx.log"
+2️⃣ Start FastAPI Server
+bash
+Copy code
+uvicorn main:app --reload
+Visit dashboard: http://127.0.0.1:8000/static/index.html
 
-Upload sample logs from `sample_data/` using the upload form. Alerts will appear in a table below.
+API Endpoints:
 
-### 3. Use CLI
+POST /ingest → Upload a log file
 
-```bash
-python cli/app.py --file sample_data/auth.log --kind auth
-```
+GET /alerts → Fetch latest alerts
 
-This parses, detects alerts, and writes them to `seclog.db`. You can fetch them via API:
+3️⃣ Deactivate Virtual Environment
+bash
+Copy code
+deactivate
+Configuration
+app/config.yaml contains detector thresholds and parser options:
 
-```bash
-curl http://127.0.0.1:8000/alerts?limit=10 | jq
-```
+yaml
+Copy code
+detectors:
+  ssh_bruteforce:
+    attempts_threshold: 5
+    window_seconds: 300
 
----
+  http_5xx_burst:
+    errors_threshold: 3
+    window_seconds: 120
 
-**Core components:**
+parsers:
+  nginx:
+    enabled: true
+  auth:
+    enabled: true
+Update thresholds according to your needs.
 
-* **API (`api/`)**: `/ingest`, `/alerts`, `/health`
-* **Parsers (`core/parsers/`)**: auth + nginx → `Event`
-* **Detections (`core/detections/`)**: brute_force + http_5xx_burst → `Alert`
-* **Storage (`storage/`)**: SQLite + helper functions
-* **Web (`web/index.html`)**: upload form + table renderer
-* **CLI (`cli/`)**: batch scanning tool
-
----
-
-## 🧑‍💻 Contributing
-
-1. Fork & clone repo
-2. Create a branch for your change
-3. Setup local env:
-
-```bash
-python -m venv .venv && source .venv/bin/activate
-pip install -e .
-```
-
-4. Run tests:
-
-```bash
-pytest -q
-```
-
-5. Open a PR referencing an issue (see [CONTRIBUTING.md](CONTRIBUTING.md))
-
----
-
-## 📌 Roadmap
-
-* [ ] Apache access log parser
-* [ ] GeoIP blocklist rule
-* [ ] Prometheus `/metrics` endpoint
-* [ ] Docker Compose example with log mounts
-* [ ] Alert notifiers (Slack, Discord)
-
----
-
-## 🛡️ Security
-
-See [SECURITY.md](SECURITY.md). For severe issues, disclose privately.
-
----
-
-
-
-## 📄 License
-
-MIT © 2025 ghostmkg
-
-## 📢 Join Our Community
-This project is open for everyone. Whether you are a beginner or experienced coder, you are welcome to contribute. Let’s learn and grow together! 🌱
-
-
-Be a part of our growing community and stay connected 🚀  
-
-- 🗨️ [Join us on Discord](https://discord.gg/YMJp48qbwR)
-- 📢 [Join our Telegram](https://t.me/gwcacademy)
-- 💼 [Follow our LinkedIn Page](https://www.linkedin.com/company/gwc-academy/)  
-- 💬 [Join our WhatsApp Community](https://whatsapp.com/channel/0029ValnoT1CBtxNi4lt8h1s)
-- 📺 [Subscribe on YouTube](https://www.youtube.com/c/growwithcode?sub_confirmation=1)  
-- 🐦 [Follow on Twitter](https://x.com/goshwami_manish) 
-- 📸 [Follow on Instagram](https://www.instagram.com/grow_with_code)  
-
-
-## ☕ Support the Project
-<p>If you like this project and want to support future development, consider buying me a coffee:</p><br>
-<a href="https://www.buymeacoffee.com/mgoshwami1c"> <img align="left" src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" height="50" width="210" alt="mgoshwami1c" ></a>
-  
-  <br><br/>
+Project Structure
+arduino
+Copy code
+gwc-siem/
+│
+├─ app/
+│  ├─ __init__.py
+│  ├─ detectors.py
+│  ├─ parsers.py
+│  ├─ storage.py
+│  ├─ models.py
+│  └─ static/
+│       ├─ index.html
+│       └─ dashboard.js
+├─ cli.py
+├─ main.py
+├─ config.yaml
+├─ requirements.txt
+└─ README.md
