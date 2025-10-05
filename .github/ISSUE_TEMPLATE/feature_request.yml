@@ -1,0 +1,160 @@
+name: "✨ Feature Request"
+description: "Suggest a new feature or enhancement"
+title: "[FEATURE] "
+labels: ["enhancement", "feature-request"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for suggesting a new feature! Your ideas help make GWC-SIEM better for everyone.
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: "Pre-submission Checklist"
+      description: "Please check the following before submitting:"
+      options:
+        - label: "I have searched existing issues and feature requests"
+          required: true
+        - label: "I have read the [README.md](../README.md) and [roadmap](../README.md#roadmap--future-features)"
+          required: true
+        - label: "This feature aligns with the project's goals (home lab SIEM, educational use)"
+          required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: "Problem Statement"
+      description: "What problem does this feature solve? What pain point are you experiencing?"
+      placeholder: "As a user, I want to... because..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: "Proposed Solution"
+      description: "Describe your proposed solution in detail."
+      placeholder: |
+        I propose adding a feature that...
+        
+        This would work by...
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: "Alternative Solutions"
+      description: "Have you considered any alternative approaches?"
+      placeholder: "Other ways this could be implemented..."
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: "Feature Category"
+      description: "What category does this feature fall into?"
+      options:
+        - "Log Parsing - New log format support"
+        - "Detection Rules - New threat detection logic"
+        - "API - New endpoints or API improvements"
+        - "Dashboard - UI/UX improvements"
+        - "CLI - Command-line tool enhancements"
+        - "Configuration - New configuration options"
+        - "Performance - Speed or efficiency improvements"
+        - "Security - Security enhancements"
+        - "Integration - Third-party service integration"
+        - "Documentation - Documentation improvements"
+        - "Other"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: "Priority Level"
+      description: "How important is this feature to you?"
+      options:
+        - "Nice to have - Would be a helpful addition"
+        - "Important - Would significantly improve my workflow"
+        - "Critical - Essential for my use case"
+    validations:
+      required: true
+
+  - type: textarea
+    id: use-case
+    attributes:
+      label: "Use Case & User Story"
+      description: "Describe a specific scenario where this feature would be useful."
+      placeholder: |
+        **Scenario:** As a security analyst monitoring a home lab...
+        
+        **Current workflow:** Currently I have to...
+        
+        **With this feature:** I would be able to...
+        
+        **Benefit:** This would save time/improve security by...
+    validations:
+      required: true
+
+  - type: textarea
+    id: implementation
+    attributes:
+      label: "Implementation Ideas"
+      description: "Do you have any ideas about how this could be implemented? (Optional)"
+      placeholder: |
+        - This could be implemented by adding...
+        - It might require changes to...
+        - Similar features exist in...
+
+  - type: textarea
+    id: examples
+    attributes:
+      label: "Examples & References"
+      description: "Are there examples of this feature in other tools? Any references or mockups?"
+      placeholder: |
+        - Similar feature in Tool X: [URL]
+        - Reference documentation: [URL]
+        - Mockup or screenshot: [attach or describe]
+
+  - type: checkboxes
+    id: compatibility
+    attributes:
+      label: "Compatibility Considerations"
+      description: "Please consider the following:"
+      options:
+        - label: "This feature should maintain backward compatibility"
+        - label: "This feature is suitable for home lab environments"
+        - label: "This feature doesn't require expensive external services"
+        - label: "This feature aligns with the educational goals of the project"
+
+  - type: dropdown
+    id: complexity
+    attributes:
+      label: "Estimated Complexity"
+      description: "How complex do you think this feature would be to implement?"
+      options:
+        - "Simple - Small change, minimal code"
+        - "Medium - Moderate change, some new components"
+        - "Complex - Significant change, new architecture"
+        - "Not sure"
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: "Contribution Interest"
+      description: "Would you be interested in contributing to this feature?"
+      options:
+        - label: "I would like to implement this feature myself"
+        - label: "I can help with testing and feedback"
+        - label: "I can provide domain expertise or requirements"
+        - label: "I can help with documentation"
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: "Additional Context"
+      description: "Anything else you'd like to add?"
+      placeholder: "Screenshots, diagrams, related issues, etc."

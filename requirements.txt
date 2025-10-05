@@ -1,0 +1,39 @@
+# GWC-SIEM Requirements
+# Production dependencies
+
+# Web Framework
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+
+# Database
+sqlalchemy==2.0.23
+aiosqlite==0.19.0
+
+# Data Processing
+pydantic==2.5.0
+python-multipart==0.0.6
+
+# Configuration
+pyyaml==6.0.1
+python-dotenv==1.0.0
+
+# Logging and Monitoring
+structlog==23.2.0
+
+# Date/Time handling
+python-dateutil==2.8.2
+
+# File processing
+aiofiles==23.2.1
+
+# Security
+passlib[bcrypt]==1.7.4
+python-jose[cryptography]==3.3.0
+
+# Optional: GeoIP support (uncomment if needed)
+# geoip2==4.7.0
+# maxminddb==2.2.0
+
+# Optional: Email notifications (uncomment if needed)
+# smtplib-async==1.1.0
+# jinja2==3.1.2
