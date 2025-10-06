@@ -1,0 +1,14 @@
+detectors:
+  ssh_bruteforce:
+    attempts_threshold: 5
+    window_seconds: 300
+
+  http_5xx_burst:
+    errors_threshold: 3
+    window_seconds: 120
+
+parsers:
+  nginx:
+    enabled: true
+  auth:
+    enabled: true
