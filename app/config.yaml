@@ -7,6 +7,30 @@ detectors:
     errors_threshold: 3
     window_seconds: 120
 
+  http_4xx_burst:
+    errors_threshold: 10
+    window_seconds: 60
+
+  suspicious_paths:
+    attempts_threshold: 3
+    window_seconds: 300
+
+  sql_injection:
+    attempts_threshold: 1
+    window_seconds: 60
+
+  user_enumeration:
+    attempts_threshold: 5
+    window_seconds: 300
+
+  port_scan:
+    unique_users_threshold: 5
+    window_seconds: 600
+
+  unusual_user_agents:
+    attempts_threshold: 3
+    window_seconds: 300
+
 parsers:
   nginx:
     enabled: true
