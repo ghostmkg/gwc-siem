@@ -1,0 +1,75 @@
+# GWC-SIEM Configuration
+# Copy this file to local.yaml and customize for your environment
+
+# Database Configuration
+database:
+  url: "sqlite:///seclog.db"
+  echo: false                    # Set to true for SQL query debugging
+  pool_pre_ping: true           # Verify connections before use
+  
+# API Server Configuration
+api:
+  host: "0.0.0.0"
+  port: 8000
+  workers: 1                    # Number of worker processes
+  reload: true                  # Auto-reload on code changes (development only)
+  access_log: true              # Log HTTP requests
+  
+# Logging Configuration
+logging:
+  level: "INFO"                 # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "logs/gwc-siem.log"     # Log file path (will be created)
+  max_file_size: "10MB"         # Rotate when file reaches this size
+  backup_count: 5               # Number of backup files to keep
+  
+# Data Retention Policies
+retention:
+  events_days: 30               # Keep events for 30 days
+  alerts_days: 90               # Keep alerts for 90 days
+  cleanup_interval: 24          # Hours between cleanup runs
+  
+# File Upload Limits
+upload:
+  max_file_size: "50MB"         # Maximum file size for uploads
+  allowed_extensions:           # Allowed file extensions
+    - ".log"
+    - ".txt"
+    - ".gz"
+  temp_directory: "temp/"       # Temporary storage for uploads
+  
+# Performance Settings
+performance:
+  batch_size: 1000              # Events processed per batch
+  max_concurrent_uploads: 3     # Maximum simultaneous file uploads
+  parser_timeout: 300           # Seconds before parser timeout
+  
+# Security Settings
+security:
+  enable_auth: false            # Enable API authentication (planned feature)
+  session_timeout: 3600         # Session timeout in seconds
+  rate_limit:
+    enabled: true
+    requests_per_minute: 100    # API rate limit per IP
+    
+# Dashboard Configuration
+dashboard:
+  auto_refresh: 30              # Seconds between auto-refresh
+  max_alerts_display: 100       # Maximum alerts shown on dashboard
+  theme: "dark"                 # dark, light, auto
+  
+# Notification Settings (Future Feature)
+notifications:
+  email:
+    enabled: false
+    smtp_server: "smtp.gmail.com"
+    smtp_port: 587
+    username: ""
+    password: ""
+    from_address: "alerts@gwc-siem.local"
+    
+  webhook:
+    enabled: false
+    url: ""
+    timeout: 10
+    retry_attempts: 3
