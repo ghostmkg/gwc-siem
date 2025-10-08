@@ -127,3 +127,42 @@ Be a part of our growing community and stay connected 🚀
 <a href="https://www.buymeacoffee.com/mgoshwami1c"> <img align="left" src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" height="50" width="210" alt="mgoshwami1c" ></a>
   
   <br><br/>
+# 🛡️ Mini-SIEM — Lightweight Security Monitoring for Home Labs
+
+A minimal SIEM (Security Information and Event Management) system for home labs and learning. It parses common system and web server logs, detects simple security events, stores alerts in SQLite, and exposes them via a **FastAPI REST API**, **CLI**, and **web dashboard**.
+
+Perfect for:
+- Homelab defenders 🧑‍💻
+- Cybersecurity learners
+- Hacktoberfest contributors 🎃
+
+---
+
+## ✨ Features
+
+- ✅ Log parsing for:
+  - `/var/log/auth.log` (SSH auth)
+  - Nginx access/error logs
+- 🔍 Detects:
+  - SSH brute force attempts
+  - Bursts of HTTP 5xx errors
+- 💾 Stores alerts in local **SQLite**
+- 🧪 REST API via **FastAPI**
+- 🔧 Interactive CLI for querying
+- 📊 Lightweight dashboard (HTML/JS)
+- 🐳 Dockerized & pluggable
+
+---
+
+## 🚀 Quick Start
+
+### 📦 Requirements
+
+- Python 3.9+
+- pip / virtualenv
+- (optional) Docker
+
+### ⚙️ Local Setup
+
+```bash
+g
