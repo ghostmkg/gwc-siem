@@ -63,7 +63,24 @@ curl http://127.0.0.1:8000/alerts?limit=10 | jq
 * **CLI (`cli/`)**: batch scanning tool
 
 ---
+### Request/Response Flow
+- **API Endpoints:** 
+  - `/ingest` → accepts logs for processing
+  - `/alerts` → retrieves generated alerts
+- **Web UI / CLI:** Interacts with the API to visualize and manage alerts.
 
+### Extensibility
+- Add new parsers or detection rules easily.
+- Built to be **modular** and **lightweight**.
+
+### Deployment
+- Supports local deployment or containerization using Docker.
+
+### Data Models
+- **Event:** `timestamp`, `log line`
+- **Alert:** `timestamp`, `source`, `type`
+
+---
 ## 🧑‍💻 Contributing
 
 1. Fork & clone repo
