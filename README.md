@@ -202,7 +202,25 @@ def process_event(parsed: Dict[str, Any]):
 ```
 
 ---
+### Request/Response Flow
+- **API Endpoints:** 
+  - `/ingest` → accepts logs for processing
+  - `/alerts` → retrieves generated alerts
+- **Web UI / CLI:** Interacts with the API to visualize and manage alerts.
 
+### Extensibility
+- Add new parsers or detection rules easily.
+- Built to be **modular** and **lightweight**.
+
+### Deployment
+- Supports local deployment or containerization using Docker.
+
+### Data Models
+- **Event:** `timestamp`, `log line`
+- **Alert:** `timestamp`, `source`, `type`
+
+---
+## 🧑‍💻 Contributing
 ## 🧪 Testing
 
 ```bash
