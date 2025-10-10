@@ -1,0 +1,236 @@
+# GWC-SIEM Detection Rules Configuration
+# This file defines the security detection rules and their thresholds
+
+# SSH/FTP Brute Force Detection
+brute_force:
+  enabled: true
+  description: "Detects brute force attacks against SSH, FTP, and other authentication services"
+  
+  # Time window for analysis
+  window_seconds: 300           # 5-minute sliding window
+  
+  # Threshold settings
+  threshold: 5                  # Failed attempts to trigger alert
+  
+  # Services to monitor
+  services:
+    ssh:
+      enabled: true
+      ports: [22, 2222]
+      keywords: ["Failed password", "Invalid user", "authentication failure"]
+    
+    ftp:
+      enabled: true
+      ports: [21, 990]
+      keywords: ["Login incorrect", "Authentication failed"]
+      
+    http_auth:
+      enabled: true
+      ports: [80, 443, 8080]
+      status_codes: [401, 403]
+  
+  # Whitelist (IPs to exclude from detection)
+  whitelist:
+    - "127.0.0.1"
+    - "::1"
+    - "192.168.1.0/24"          # Local network range
+    
+  # Alert configuration
+  severity: "HIGH"
+  category: "Authentication"
+
+# HTTP Error Burst Detection
+http_anomaly:
+  enabled: true
+  description: "Detects bursts of HTTP 5xx errors indicating potential DoS or system issues"
+  
+  # Time window for analysis
+  window_seconds: 60            # 1-minute window
+  
+  # Error threshold
+  error_threshold: 10           # 10 errors in time window
+  
+  # HTTP status codes to monitor
+  status_codes:
+    - 500                       # Internal Server Error
+    - 502                       # Bad Gateway
+    - 503                       # Service Unavailable
+    - 504                       # Gateway Timeout
+    
+  # Additional monitoring
+  monitor_4xx: false            # Also monitor 4xx errors
+  four_xx_threshold: 50         # Threshold for 4xx errors
+  
+  # Alert configuration
+  severity: "MEDIUM"
+  category: "Availability"
+
+# Large File Upload Detection
+large_upload:
+  enabled: true
+  description: "Detects unusually large file uploads that might indicate data exfiltration"
+  
+  # File size threshold (in bytes)
+  size_threshold: 104857600     # 100MB
+  
+  # Time window for multiple uploads
+  window_seconds: 3600          # 1 hour
+  
+  # Multiple upload threshold
+  upload_count_threshold: 5     # 5 large uploads in window
+  
+  # File types to monitor (empty = all types)
+  file_extensions: []
+  
+  # Alert configuration
+  severity: "MEDIUM"
+  category: "Data Exfiltration"
+
+# Geographic Anomaly Detection (Future Feature)
+geo_anomaly:
+  enabled: false                # Requires GeoIP database
+  description: "Detects access from unusual geographic locations"
+  
+  # Countries to block (ISO country codes)
+  blocked_countries:
+    - "CN"                      # China
+    - "RU"                      # Russia
+    - "KP"                      # North Korea
+    
+  # Alert on first-time countries
+  alert_new_countries: true
+  
+  # Whitelist for allowed countries
+  allowed_countries:
+    - "US"                      # United States
+    - "CA"                      # Canada
+    - "GB"                      # United Kingdom
+    
+  severity: "LOW"
+  category: "Geographic"
+
+# Suspicious User Agent Detection
+suspicious_ua:
+  enabled: true
+  description: "Detects suspicious or malicious user agents"
+  
+  # Suspicious patterns (regex supported)
+  suspicious_patterns:
+    - "sqlmap"
+    - "nikto"
+    - "nmap"
+    - "masscan"
+    - "zap"
+    - "burp"
+    - "python-requests/.*"      # Generic Python requests
+    - "curl/.*"                 # Generic curl (might be automated)
+    
+  # Case sensitivity
+  case_sensitive: false
+  
+  # Minimum requests to trigger alert
+  min_requests: 3
+  
+  # Time window
+  window_seconds: 300           # 5 minutes
+  
+  severity: "MEDIUM"
+  category: "Reconnaissance"
+
+# Port Scan Detection
+port_scan:
+  enabled: true
+  description: "Detects port scanning activities"
+  
+  # Unique ports accessed by single IP
+  port_threshold: 10            # Different ports in time window
+  
+  # Time window
+  window_seconds: 300           # 5 minutes
+  
+  # Ports to specifically monitor
+  sensitive_ports:
+    - 22                        # SSH
+    - 23                        # Telnet
+    - 25                        # SMTP
+    - 53                        # DNS
+    - 80                        # HTTP
+    - 110                       # POP3
+    - 135                       # RPC
+    - 139                       # NetBIOS
+    - 143                       # IMAP
+    - 443                       # HTTPS
+    - 993                       # IMAPS
+    - 995                       # POP3S
+    
+  severity: "HIGH"
+  category: "Reconnaissance"
+
+# Time-based Anomaly Detection
+time_anomaly:
+  enabled: true
+  description: "Detects access during unusual hours"
+  
+  # Business hours (24-hour format)
+  business_hours:
+    start: "08:00"
+    end: "18:00"
+    
+  # Days of week (0=Monday, 6=Sunday)
+  business_days: [0, 1, 2, 3, 4]  # Monday to Friday
+  
+  # Timezone
+  timezone: "UTC"
+  
+  # Minimum requests to trigger alert
+  min_requests: 10
+  
+  severity: "LOW"
+  category: "Behavioral"
+
+# Rate Limiting Violation
+rate_limit_violation:
+  enabled: true
+  description: "Detects clients exceeding normal request rates"
+  
+  # Requests per minute threshold
+  requests_per_minute: 100
+  
+  # Sustained high rate duration (minutes)
+  sustained_duration: 5
+  
+  # Burst threshold (requests in 10 seconds)
+  burst_threshold: 50
+  
+  severity: "MEDIUM"
+  category: "Abuse"
+
+# Configuration for alert correlation
+correlation:
+  enabled: true
+  
+  # Time window for correlating related alerts
+  correlation_window: 1800      # 30 minutes
+  
+  # Minimum alerts to create correlation
+  min_alerts: 3
+  
+  # Alert types that can be correlated
+  correlatable_types:
+    - "brute_force"
+    - "port_scan"
+    - "suspicious_ua"
+
+# Global settings
+global:
+  # Default severity if not specified
+  default_severity: "MEDIUM"
+  
+  # Enable/disable all detections
+  master_enable: true
+  
+  # Minimum confidence score (0.0 - 1.0)
+  min_confidence: 0.7
+  
+  # Maximum alerts per minute (rate limiting)
+  max_alerts_per_minute: 10
