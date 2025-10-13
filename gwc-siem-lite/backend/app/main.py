@@ -30,9 +30,11 @@ async def ingest(file: UploadFile = File(...), kind: str = "auth"):
 
     brute_force_detector = detector.BruteForceDetector()
     http_5xx_detector = detector.Http5xxBurstDetector()
+    geoip_detector = detector.GeoIPBlocklistDetector()
 
     alerts = brute_force_detector.detect(events)
     alerts.extend(http_5xx_detector.detect(events))
+    alerts.extend(geoip_detector.detect(events))
 
     for alert in alerts:
         db.add_alert(alert)

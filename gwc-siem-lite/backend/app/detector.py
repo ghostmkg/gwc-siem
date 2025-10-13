@@ -48,3 +48,19 @@ class Http5xxBurstDetector(BaseDetector):
                         source_ip=ip
                     ))
         return alerts
+
+class GeoIPBlocklistDetector(BaseDetector):
+    # In a real-world scenario, this would be loaded from a file or a feed.
+    BLOCKLIST = {"1.2.3.4", "5.6.7.8", "9.10.11.12"}
+
+    def detect(self, events: list[Event]) -> list[Alert]:
+        alerts = []
+        for event in events:
+            if event.source_ip in self.BLOCKLIST:
+                alerts.append(Alert(
+                    timestamp=event.timestamp,
+                    rule_name="GeoIP Blocklist",
+                    description=f"Traffic from blocklisted IP {event.source_ip}",
+                    source_ip=event.source_ip
+                ))
+        return alerts
