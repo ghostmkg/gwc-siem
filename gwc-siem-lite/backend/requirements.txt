@@ -1,3 +1,5 @@
 fastapi
 uvicorn[standard]
 prometheus-fastapi-instrumentator
+pytest
+httpx
