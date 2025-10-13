@@ -1,8 +1,16 @@
 
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from . import parser, detector, db, models
+from prometheus_fastapi_instrumentator import Instrumentator
+from prometheus_client import Counter
 
 app = FastAPI()
+
+# Add Prometheus instrumentation
+instrumentator = Instrumentator().instrument(app)
+instrumentator.expose(app)
+
+ALERTS_COUNTER = Counter("siem_alerts_total", "Total number of alerts generated")
 
 @app.on_event("startup")
 def startup_event():
@@ -38,6 +46,7 @@ async def ingest(file: UploadFile = File(...), kind: str = "auth"):
 
     for alert in alerts:
         db.add_alert(alert)
+        ALERTS_COUNTER.inc()
 
     return {"message": f"Ingested and analyzed {len(lines)} lines. Found {len(alerts)} alerts."}
 
