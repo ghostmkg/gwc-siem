@@ -1,196 +1,98 @@
-# Contributing to GWC-SIEM 🤝
+# Contributing to gwc-siem
 
-Thank you for your interest in contributing to GWC-SIEM! This project welcomes contributions from developers of all skill levels.
+Thank you for your interest in contributing to gwc-siem! Whether you're fixing a bug, improving documentation, or adding a feature, your help is appreciated. This document explains how to get started and the project's expectations for contributions.
 
-## 🎯 Getting Started
+## Table of contents
+- How to contribute (high-level)
+- Reporting issues
+- Preparing a change (fork, branch, commit messages)
+- Pull request checklist
+- Coding style & tests
+- Documentation
+- Hacktoberfest notes
+- Code of Conduct
 
-### Prerequisites
-- Python 3.8+
-- Git
-- Basic understanding of security concepts (helpful but not required)
+## How to contribute (high-level)
 
-### Development Setup
+1. Find something to work on (issues, docs, or ideas).
+2. Fork the repository and create a topic branch.
+3. Make small, focused changes with clear commits.
+4. Open a pull request (PR) with a description of the change.
+5. Respond to review feedback and iterate until the PR is merged.
 
-1. **Fork the repository**
-   ```bash
-   # Click the "Fork" button on GitHub, then clone your fork
-   git clone https://github.com/your-username/gwc-siem.git
-   cd gwc-siem
-   ```
+## Reporting issues
 
-2. **Set up development environment**
-   ```bash
-   # Create virtual environment
-   python -m venv .venv
-   
-   # Activate virtual environment
-   # On Windows:
-   .venv\Scripts\activate
-   # On macOS/Linux:
-   source .venv/bin/activate
-   
-   # Install dependencies
-   pip install -e .
-   pip install pytest black flake8 mypy
-   ```
+- Before opening a new issue, search existing issues to avoid duplicates.
+- When creating an issue, include:
+  - A descriptive title
+  - Steps to reproduce (if applicable)
+  - Expected vs actual behavior
+  - Environment details (OS, versions) when relevant
+  - Minimal reproducible example or logs when possible
 
-3. **Verify setup**
-   ```bash
-   # Run tests
-   pytest -v
-   
-   # Start the API server
-   uvicorn api.main:app --reload
-   ```
+If you want help deciding what to work on, check `Contribution_README.md` for suggested tasks and tips.
 
-## 🔄 Development Workflow
+## Preparing a change (fork, branch, commit messages)
 
-### Creating a Feature Branch
-```bash
-git checkout -b feature/your-feature-name
-# or
-git checkout -b fix/issue-description
-```
+1. Fork the repository to your GitHub account.
+2. Clone your fork and add the upstream remote:
 
-### Making Changes
-1. Write clean, well-documented code
-2. Add tests for new functionality
-3. Update documentation if needed
-4. Follow the existing code style
+   git clone <your-fork-url>
+   git remote add upstream https://github.com/haris-bit/gwc-siem.git
 
-### Code Quality Checks
-```bash
-# Format code
-black .
+3. Create a topic branch with a short, descriptive name:
 
-# Check linting
-flake8 .
+   git checkout -b fix/clear-description
 
-# Type checking
-mypy core/ api/ cli/
+4. Keep commits small and focused. Use imperative, present-tense commit messages, for example:
 
-# Run tests
-pytest -v --cov=core --cov=api
-```
+   - "Fix: handle null pointer when parsing config"
+   - "Docs: improve installation instructions"
 
-### Submitting Changes
-1. Commit your changes with descriptive messages:
-   ```bash
-   git add .
-   git commit -m "feat: add Apache log parser support"
-   ```
+5. Rebase or merge from upstream main regularly to keep your branch up to date before opening a PR:
 
-2. Push to your fork:
-   ```bash
-   git push origin feature/your-feature-name
-   ```
+   git fetch upstream; git rebase upstream/main
 
-3. Create a Pull Request on GitHub
+## Pull request checklist
 
-## 🎨 Contribution Guidelines
+When opening a PR, include the following in your description:
 
-### Code Style
-- Follow PEP 8 for Python code
-- Use meaningful variable and function names
-- Add docstrings for functions and classes
-- Keep functions small and focused
+- What the change does and why
+- Any relevant issue number (e.g., "Closes #123")
+- How to test the change
+- Screenshots or logs if the change affects UI/UX or outputs
 
-### Commit Messages
-Follow conventional commits format:
-- `feat:` new features
-- `fix:` bug fixes
-- `docs:` documentation changes
-- `test:` adding tests
-- `refactor:` code refactoring
+Maintainers will review your PR. Expect requests for changes and be responsive. Once approved, a maintainer will merge it.
 
-### Testing
-- Write unit tests for new functionality
-- Ensure all tests pass before submitting PR
-- Add integration tests for API endpoints
-- Test with sample log data
+## Coding style & tests
 
-## 🎯 Areas for Contribution
+- Follow the existing code style in the repository. If the project uses linters or formatters, run them before committing.
+- Add unit tests for behavioral changes or new features where appropriate.
+- Run tests locally and ensure they pass before opening a PR.
 
-### 🚀 Good First Issues
-- Add new log parsers (Apache, IIS, etc.)
-- Improve error handling and logging
-- Add more detection rules
-- Enhance the web dashboard UI
-- Write additional test cases
+If you need help running tests or the project doesn't include tests yet, open an issue and we can help you get set up.
 
-### 🔥 Advanced Contributions
-- Performance optimizations
-- Advanced threat detection algorithms
-- Integration with external APIs
-- Kubernetes deployment manifests
-- Real-time log streaming
+## Documentation
 
-### 📚 Documentation
-- API documentation improvements
-- Tutorial videos or blog posts
-- Architecture diagrams
-- Deployment guides
+- Improve README sections or add new docs when you add features or change behavior.
+- Keep documentation changes in the same PR as code changes when possible, or reference them clearly.
 
-## 🐛 Bug Reports
+## Hacktoberfest notes
 
-When reporting bugs, please include:
+This repository participates in Hacktoberfest. To make sure your PR counts:
 
-1. **Environment details**: OS, Python version, installed packages
-2. **Steps to reproduce**: Clear, step-by-step instructions
-3. **Expected vs actual behavior**
-4. **Error messages**: Full stack traces if applicable
-5. **Sample data**: Anonymized log files if relevant
+- Make meaningful contributions: avoid trivial changes like whitespace-only edits.
+- Ensure your PR is merged or accepted before the event's deadline for it to count.
+- Label your PR with relevant labels if requested by maintainers. If you want your PR to be considered for Hacktoberfest difficulty labels, ask maintainers via the PR comments.
 
-Use the bug report template when creating issues.
+For more Hacktoberfest guidance, see the event website and the project's `Contribution_README.md`.
 
-## 💡 Feature Requests
+## Code of Conduct
 
-For new features:
+By participating in this project, you agree to follow the project's Code of Conduct. Be respectful, constructive, and inclusive.
 
-1. Check existing issues to avoid duplicates
-2. Describe the problem your feature solves
-3. Provide implementation ideas if you have them
-4. Consider contributing the feature yourself!
+If the repository doesn't already include a `CODE_OF_CONDUCT.md`, please open an issue or PR to add one.
 
-## 📋 Pull Request Process
+---
 
-1. **Link to an issue**: Reference the issue your PR addresses
-2. **Describe changes**: Clear description of what you changed and why
-3. **Update docs**: Update README.md or other docs if needed
-4. **Add tests**: Include tests for new functionality
-5. **Check CI**: Ensure all CI checks pass
-
-### PR Template Checklist
-- [ ] Tests added/updated and passing
-- [ ] Documentation updated
-- [ ] Code follows project style guidelines
-- [ ] Commit messages follow conventional format
-- [ ] No breaking changes (or clearly documented)
-
-## 🤝 Community Guidelines
-
-- Be respectful and inclusive
-- Help newcomers get started
-- Provide constructive feedback
-- Focus on the code, not the person
-- Follow the [Code of Conduct](https://www.contributor-covenant.org/version/2/0/code_of_conduct/)
-
-## 🏆 Recognition
-
-Contributors will be:
-- Added to the README.md contributors section
-- Mentioned in release notes for significant contributions
-- Invited to join the core maintainer team for outstanding ongoing contributions
-
-## 📞 Getting Help
-
-- **Discord**: [Join our community](https://discord.gg/YMJp48qbwR)
-- **Telegram**: [GWC Academy](https://t.me/gwcacademy)
-- **GitHub Discussions**: For longer form discussions
-- **Issues**: For specific bugs or feature requests
-
-## 🎉 Hacktoberfest Participation
-
-This project participates in Hacktoberfest! Look for issues labeled `hacktoberfest` and `good-first-issue` to get started.
-
-Thank you for contributing to GWC-SIEM! 🛡️
+If you have questions or need help getting started, open an issue and tag @haris-bit or any available maintainer. Thanks for contributing!
