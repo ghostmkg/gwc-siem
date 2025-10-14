@@ -1,0 +1,37 @@
+# Development dependencies for GWC-SIEM
+# Include all production requirements
+-r requirements.txt
+
+# Testing
+pytest==7.4.3
+pytest-asyncio==0.21.1
+pytest-cov==4.1.0
+pytest-mock==3.12.0
+httpx==0.25.2  # For FastAPI testing
+
+# Code Quality
+black==23.11.0
+flake8==6.1.0
+isort==5.12.0
+mypy==1.7.1
+
+# Security Analysis
+bandit==1.7.5
+safety==2.3.5
+
+# Documentation
+mkdocs==1.5.3
+mkdocs-material==9.4.8
+mkdocs-swagger-ui-tag==0.6.6
+
+# Development Tools
+pre-commit==3.6.0
+jupyter==1.0.0
+ipython==8.17.2
+
+# Performance Profiling
+memory-profiler==0.61.0
+line-profiler==4.1.1
+
+# Database Tools
+sqlite-utils==3.35.2

@@ -1,0 +1,144 @@
+name: "🐛 Bug Report"
+description: "Report a bug or unexpected behavior"
+title: "[BUG] "
+labels: ["bug", "triage"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking the time to report a bug! Please provide as much detail as possible to help us reproduce and fix the issue.
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: "Pre-submission Checklist"
+      description: "Please check the following before submitting:"
+      options:
+        - label: "I have searched existing issues to ensure this bug hasn't been reported before"
+          required: true
+        - label: "I have read the [README.md](../README.md) and [CONTRIBUTING.md](../CONTRIBUTING.md)"
+          required: true
+        - label: "I am using a supported Python version (3.8+)"
+          required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: "Bug Description"
+      description: "A clear and concise description of what the bug is."
+      placeholder: "Describe what happened and what you expected to happen..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: "Steps to Reproduce"
+      description: "Please provide detailed steps to reproduce the issue."
+      placeholder: |
+        1. Start the API server with `uvicorn api.main:app --reload`
+        2. Upload a log file via the web interface
+        3. Navigate to alerts page
+        4. Error occurs...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: "Expected Behavior"
+      description: "What did you expect to happen?"
+      placeholder: "The system should..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: "Actual Behavior"
+      description: "What actually happened?"
+      placeholder: "Instead, the system..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: "Environment Information"
+      description: "Please provide details about your environment."
+      placeholder: |
+        - OS: [e.g., Windows 11, Ubuntu 22.04, macOS 13.0]
+        - Python Version: [e.g., 3.11.2]
+        - GWC-SIEM Version: [e.g., 1.0.0 or commit hash]
+        - Browser (if web-related): [e.g., Chrome 118.0, Firefox 119.0]
+        - Installation method: [pip, git clone, docker]
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: "Error Logs"
+      description: "Please include any relevant error messages or stack traces."
+      placeholder: |
+        Paste error logs here...
+        
+        If the logs are very long, please use a service like https://gist.github.com/
+      render: shell
+
+  - type: textarea
+    id: config
+    attributes:
+      label: "Configuration"
+      description: "If relevant, please share your configuration (remove sensitive information)."
+      placeholder: |
+        # config/local.yaml (remove any sensitive information)
+        database:
+          url: "sqlite:///seclog.db"
+        api:
+          host: "0.0.0.0"
+          port: 8000
+      render: yaml
+
+  - type: textarea
+    id: sample-data
+    attributes:
+      label: "Sample Data"
+      description: "If the bug is related to log parsing, please provide a sample log entry (anonymized)."
+      placeholder: |
+        Sample log entries that trigger the issue (please anonymize sensitive data):
+        
+        Oct  5 10:30:15 hostname sshd[1234]: Failed password for user from 192.168.1.100 port 22 ssh2
+      render: text
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: "Bug Severity"
+      description: "How severe is this bug?"
+      options:
+        - "Low - Minor issue, workaround available"
+        - "Medium - Noticeable issue, no workaround"
+        - "High - Major functionality broken"
+        - "Critical - System unusable or security issue"
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: "Additional Context"
+      description: "Add any other context about the problem here."
+      placeholder: "Screenshots, additional logs, related issues, etc."
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: "Contribution"
+      description: "Would you like to contribute to fixing this issue?"
+      options:
+        - label: "I would like to work on fixing this bug"
+        - label: "I can provide additional testing or information"
+        - label: "I'm available for follow-up questions"

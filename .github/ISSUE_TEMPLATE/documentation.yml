@@ -1,0 +1,148 @@
+name: "📚 Documentation"
+description: "Report an issue with documentation or suggest improvements"
+title: "[DOCS] "
+labels: ["documentation"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Help us improve our documentation! Whether you found an error, something confusing, or have suggestions for improvement, we'd love to hear from you.
+
+  - type: dropdown
+    id: doc-type
+    attributes:
+      label: "Documentation Type"
+      description: "What type of documentation is this about?"
+      options:
+        - "README.md - Main project documentation"
+        - "CONTRIBUTING.md - Contribution guidelines"
+        - "SECURITY.md - Security policy"
+        - "API Documentation - FastAPI/OpenAPI docs"
+        - "Code Comments - Inline documentation"
+        - "Configuration - Config file documentation"
+        - "Installation Guide - Setup instructions"
+        - "Troubleshooting - Error resolution"
+        - "Examples - Usage examples"
+        - "Other"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: issue-type
+    attributes:
+      label: "Issue Type"
+      description: "What kind of documentation issue is this?"
+      options:
+        - "Error - Incorrect information"
+        - "Missing - Information is missing"
+        - "Unclear - Hard to understand"
+        - "Outdated - Information is out of date"
+        - "Improvement - Suggestion for better documentation"
+        - "New - Request for new documentation"
+    validations:
+      required: true
+
+  - type: textarea
+    id: location
+    attributes:
+      label: "Documentation Location"
+      description: "Where did you find this issue? Please provide a specific location."
+      placeholder: |
+        - File: README.md
+        - Section: "Quick Start Guide"
+        - Line: 45
+        - URL: https://github.com/Shubham11440/gwc-siem/blob/main/README.md#quick-start-guide
+    validations:
+      required: true
+
+  - type: textarea
+    id: current
+    attributes:
+      label: "Current Documentation"
+      description: "What does the current documentation say? (Copy/paste the relevant section)"
+      placeholder: "Current text or description of what's currently documented..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: issue
+    attributes:
+      label: "Issue Description"
+      description: "What's wrong with the current documentation?"
+      placeholder: |
+        The current documentation says... but it should say...
+        
+        OR
+        
+        The documentation is confusing because...
+        
+        OR
+        
+        Information is missing about...
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggested
+    attributes:
+      label: "Suggested Improvement"
+      description: "How should the documentation be improved?"
+      placeholder: |
+        The documentation should be updated to say...
+        
+        OR
+        
+        Add a new section that explains...
+        
+        OR
+        
+        Include an example showing...
+    validations:
+      required: true
+
+  - type: textarea
+    id: audience
+    attributes:
+      label: "Target Audience"
+      description: "Who would benefit from this documentation improvement?"
+      placeholder: |
+        - New users trying to install the project
+        - Developers contributing to the project
+        - Security professionals using the SIEM
+        - Students learning about SIEM systems
+        - All users
+
+  - type: dropdown
+    id: difficulty
+    attributes:
+      label: "User Experience Level"
+      description: "What's your experience level with SIEM systems and Python development?"
+      options:
+        - "Beginner - New to SIEM and Python"
+        - "Intermediate - Some experience with security tools"
+        - "Advanced - Experienced with SIEM systems and development"
+        - "Expert - Professional security/development background"
+
+  - type: textarea
+    id: context
+    attributes:
+      label: "Additional Context"
+      description: "Any additional information that would help us understand the issue?"
+      placeholder: |
+        - Screenshots of confusing interfaces
+        - Error messages you encountered
+        - What you were trying to accomplish
+        - Links to related documentation
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: "Contribution"
+      description: "Would you like to help improve the documentation?"
+      options:
+        - label: "I would like to submit a pull request to fix this"
+        - label: "I can help review documentation improvements"
+        - label: "I can provide additional examples or use cases"
+        - label: "I'm available to test documentation changes"

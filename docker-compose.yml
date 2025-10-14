@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  gwc-siem:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./config:/app/config
+      - ./logs:/app/logs
+      - ./uploads:/app/uploads
+      - ./sample_data:/app/sample_data
+      - gwc_siem_data:/app/data
+    environment:
+      - GWCSIEM_CONFIG_PATH=/app/config/local.yaml
+      - DATABASE_URL=sqlite:///data/seclog.db
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  # Optional: Add a reverse proxy
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - gwc-siem
+    restart: unless-stopped
+    profiles:
+      - with-proxy
+
+  # Optional: Add log file monitoring
+  log-monitor:
+    image: alpine:latest
+    volumes:
+      - /var/log:/host/var/log:ro
+      - ./uploads:/app/uploads
+    command: |
+      sh -c "
+        while true; do
+          # Copy new log files to uploads directory
+          find /host/var/log -name '*.log' -newer /tmp/last_check 2>/dev/null | \
+          while read file; do
+            cp \"$$file\" /app/uploads/
+          done
+          touch /tmp/last_check
+          sleep 300  # Check every 5 minutes
+        done
+      "
+    restart: unless-stopped
+    profiles:
+      - with-monitoring
+
+volumes:
+  gwc_siem_data:
+    driver: local
+
+networks:
+  default:
+    name: gwc-siem-network
