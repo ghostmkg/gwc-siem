@@ -45,3 +45,32 @@ def parse_nginx_line(line: str) -> Optional[Dict]:
     ts = parse_nginx_time(m.group("time"))
     return {"timestamp": ts, "source": "nginx", "raw": line.strip(), "type": "nginx.access",
             "ip": m.group("ip"), "method": m.group("method"), "path": m.group("path"), "status": status}
+
+# Apache Combined Log Format
+_apache_re = re.compile(
+    r'(?P<ip>\d+\.\d+\.\d+\.\d+)\s+\S+\s+\S+\s+\[(?P<time>[^\]]+)\]\s+"(?P<method>\S+)\s+(?P<path>\S+)[^"]*"\s+(?P<status>\d{3})\s+(?P<size>\S+)\s+"(?P<ref>[^"]*)"\s+"(?P<ua>[^\"]*)"'
+)
+
+def parse_apache_time(timestr: str) -> datetime:
+    # e.g. 10/Oct/2000:13:55:36 -0700
+    return datetime.strptime(timestr.split()[0], "%d/%b/%Y:%H:%M:%S")
+
+def parse_apache_line(line: str) -> Optional[Dict]:
+    m = _apache_re.match(line)
+    if not m:
+        return None
+    status = int(m.group("status"))
+    ts = parse_apache_time(m.group("time"))
+    size = m.group("size")
+    size_val = int(size) if size.isdigit() else 0
+    return {
+        "timestamp": ts,
+        "source": "apache",
+        "raw": line.strip(),
+        "type": "apache.access",
+        "ip": m.group("ip"),
+        "method": m.group("method"),
+        "path": m.group("path"),
+        "status": status,
+        "size": size_val,
+    }

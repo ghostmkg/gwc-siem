@@ -1,6 +1,6 @@
 from fastapi import FastAPI, UploadFile, File, Form
 from fastapi.staticfiles import StaticFiles
-from app.parsers import parse_auth_line, parse_nginx_line
+from app.parsers import parse_auth_line, parse_nginx_line, parse_apache_line
 from app.storage import init_db, save_event, list_alerts
 from app.detectors import process_event
 from datetime import datetime
@@ -32,12 +32,17 @@ async def ingest(file: UploadFile = File(...), source: str = Form(None)):
             continue
 
         # Parse the line
-        parsed = parse_auth_line(raw_line) or parse_nginx_line(raw_line) or {
+        parsed = (
+            parse_auth_line(raw_line)
+            or parse_nginx_line(raw_line)
+            or parse_apache_line(raw_line)
+            or {
             "timestamp": datetime.utcnow(),
             "source": source or file.filename,
             "raw": raw_line,
             "type": "unknown"
-        }
+            }
+        )
 
         # Save event to DB
         save_event(parsed["timestamp"], parsed["source"], parsed["raw"], parsed.get("type"))
