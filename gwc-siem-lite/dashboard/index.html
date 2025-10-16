@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini-SIEM Dashboard</title>
+    <style>
+        body { font-family: sans-serif; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <h1>Mini-SIEM Dashboard</h1>
+    
+    <h2>Alerts</h2>
+    <table id="alerts-table">
+        <thead>
+            <tr>
+                <th>Timestamp</th>
+                <th>Rule Name</th>
+                <th>Description</th>
+                <th>Source IP</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Alerts will be populated here -->
+        </tbody>
+    </table>
+
+    <script>
+        async function fetchAlerts() {
+            try {
+                const response = await fetch("/alerts");
+                const alerts = await response.json();
+                const tableBody = document.querySelector("#alerts-table tbody");
+                tableBody.innerHTML = ""; // Clear existing rows
+
+                alerts.forEach(alert => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>${alert.timestamp}</td>
+                        <td>${alert.rule_name}</td>
+                        <td>${alert.description}</td>
+                        <td>${alert.source_ip}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            } catch (error) {
+                console.error("Error fetching alerts:", error);
+            }
+        }
+
+        // Fetch alerts every 5 seconds
+        setInterval(fetchAlerts, 5000);
+
+        // Initial fetch
+        fetchAlerts();
+    </script>
+</body>
+</html>
