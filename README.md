@@ -83,6 +83,25 @@ pytest -q
 
 5. Open a PR referencing an issue (see [CONTRIBUTING.md](CONTRIBUTING.md))
 
+🔔 Notifications Feature
+
+The Notifications system alerts users in real-time when new security events or logs are ingested.
+
+🧩 How to Run
+
+1. Start the Flask server:
+python -m api.ingest
+The server runs on http://127.0.0.1:5000
+
+2. Keep this server running in the background while you use the dashboard or API.
+
+3. When new logs are uploaded or alerts are generated, notifications will appear automatically.
+
+🧠 How It Works
+
+-The api/ingest.py script listens for new events.
+-Detected alerts trigger in-app notifications.
+-Ideal for monitoring real-time ingestion and alert generation.
 ---
 
 ## 📌 Roadmap
