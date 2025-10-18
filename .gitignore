@@ -1,0 +1,19 @@
+# Byte-compiled / cache files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environments
+.env/
+venv/
+
+# Logs
+*.log
+
+# Config files with secrets
+config/config.json
+
+# OS junk
+.DS_Store
+Thumbs.db
