@@ -26,29 +26,12 @@
 
 ## 🏗️ Architecture
 
-```
-Mini-SIEM/
-├── app/
-│   ├── main.py          # FastAPI application
-│   ├── models.py        # Database models
-│   ├── parsers.py       # Log parsing logic
-│   ├── detectors.py     # Threat detection rules
-│   ├── storage.py       # Database operations
-│   └── static/          # Web dashboard
-├── config/
-│   ├── default.yaml     # Default configuration
-│   └── detections.yaml  # Detection rules
-├── tests/               # Test suite
-└── requirements.txt     # Dependencies
-```
-
-### 🔧 Core Components
-
-- **Log Parser**: Extracts structured data from raw log files
-- **Threat Detector**: Analyzes events and generates alerts
-- **Storage Engine**: Persists events and alerts in SQLite database
-- **Web API**: RESTful API for log ingestion and alert retrieval
-- **Dashboard**: Web interface for monitoring and analysis
+* **Log ingestion:** Upload `auth.log` or Nginx access logs via API or UI
+* **Parsers:** Convert raw lines → structured `Event` objects
+* **Detections:** Sliding-window brute-force & 5xx-burst rules (thresholds configurable in YAML)
+* **Storage:** SQLite for easy portability
+* **Dashboard:** Static HTML + JS fetch alerts from API
+* **CLI:** Local batch scanning for sample logs or offline use
 
 ---
 
@@ -387,61 +370,28 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
+---
+
 ## 📢 Join Our Community
 
-Be a part of our growing community and stay connected! 🚀
+Be a part of our growing community and stay connected 🚀
 
-<div align="center">
-
-[![Discord](https://img.shields.io/badge/Discord-Join%20Us-7289da?style=for-the-badge&logo=discord)](https://discord.gg/YMJp48qbwR)
-[![Telegram](https://img.shields.io/badge/Telegram-Join%20Chat-0088cc?style=for-the-badge&logo=telegram)](https://t.me/gwcacademy)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Follow%20Us-0077b5?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/company/gwc-academy/)
-
-</div>
+* 🗨️ [Join us on Discord](https://discord.gg/YMJp48qbwR)
+* 📢 [Join our Telegram](https://t.me/gwcacademy)
+* 💼 [Follow our LinkedIn Page](https://www.linkedin.com/company/gwc-academy/)
+* 💬 [Join our WhatsApp Community](https://whatsapp.com/channel/0029ValnoT1CBtxNi4lt8h1s)
+* 📺 [Subscribe on YouTube](https://www.youtube.com/c/growwithcode?sub_confirmation=1)
+* 🐦 [Follow on Twitter](https://x.com/goshwami_manish)
+* 📸 [Follow on Instagram](https://www.instagram.com/grow_with_code)
 
 ---
 
 ## ☕ Support the Project
-<p>If you like this project and want to support future development, consider buying me a coffee:</p><br>
-<a href="https://www.buymeacoffee.com/mgoshwami1c"> <img align="left" src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" height="50" width="210" alt="mgoshwami1c" ></a>
-  
-  <br><br/>
-# 🛡️ Mini-SIEM — Lightweight Security Monitoring for Home Labs
 
-A minimal SIEM (Security Information and Event Management) system for home labs and learning. It parses common system and web server logs, detects simple security events, stores alerts in SQLite, and exposes them via a **FastAPI REST API**, **CLI**, and **web dashboard**.
+If you like this project and want to support future development, consider buying me a coffee:
 
-Perfect for:
-- Homelab defenders 🧑‍💻
-- Cybersecurity learners
-- Hacktoberfest contributors 🎃
+<a href="https://www.buymeacoffee.com/mgoshwami1c">
+  <img align="left" src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" height="50" width="210" alt="mgoshwami1c">
+</a>
 
----
-
-## ✨ Features
-
-- ✅ Log parsing for:
-  - `/var/log/auth.log` (SSH auth)
-  - Nginx access/error logs
-- 🔍 Detects:
-  - SSH brute force attempts
-  - Bursts of HTTP 5xx errors
-- 💾 Stores alerts in local **SQLite**
-- 🧪 REST API via **FastAPI**
-- 🔧 Interactive CLI for querying
-- 📊 Lightweight dashboard (HTML/JS)
-- 🐳 Dockerized & pluggable
-
----
-
-## 🚀 Quick Start
-
-### 📦 Requirements
-
-- Python 3.9+
-- pip / virtualenv
-- (optional) Docker
-
-### ⚙️ Local Setup
-
-```bash
-g
+<br><br/>
