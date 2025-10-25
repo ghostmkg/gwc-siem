@@ -1,0 +1,16 @@
+{
+  "slack_webhook": "",
+
+  "discord_webhook": "",
+
+  "smtp": {
+    "server": "",
+    "port": 465,
+    "user": "",
+    "password": "",
+    "email_from": "",
+    "email_to": ""
+  },
+
+  "rate_limit_seconds": 60
+}
