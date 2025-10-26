@@ -1,0 +1,66 @@
+# ------------------------------
+# Python build and cache files
+# ------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# ------------------------------
+# Virtual environments
+# ------------------------------
+.venv/
+venv/
+ENV/
+env/
+env.bak/
+venv.bak/
+
+# ------------------------------
+# SQLite databases & local storage
+# ------------------------------
+*.db
+*.sqlite
+*.sqlite3
+
+# ------------------------------
+# Logs and runtime files
+# ------------------------------
+*.log
+*.pid
+*.csv
+
+# ------------------------------
+# Environment and config
+# ------------------------------
+.env
+.env.*
+config.yaml
+config.yml
+
+# ------------------------------
+# Jupyter / Notebooks
+# ------------------------------
+.ipynb_checkpoints
+*.ipynb
+
+# ------------------------------
+# OS / Editor / IDE files
+# ------------------------------
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ------------------------------
+# Distribution / packaging
+# ------------------------------
+build/
+dist/
+*.egg-info/
+*.egg
+MANIFEST
