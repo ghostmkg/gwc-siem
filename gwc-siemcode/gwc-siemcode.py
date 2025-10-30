@@ -1,7 +1,4 @@
-"""
-GWC SIEM (Security Information and Event Management) - Python Contribution
-Template for contributing to Girls Who Code SIEM projects
-"""
+
 
 import json
 import logging
