@@ -8,7 +8,7 @@ It parses common logs (auth, nginx), detects simple security events (SSH brute f
 ## 🌟 Features
 
 - Parse common logs:
-  - `/var/log/auth.log` → detect SSH brute force attempts  
+  - `/var/log/auth.log` → detected SSH brute force attempts  
   - `nginx/access.log` → detect HTTP 5xx bursts
 - Store alerts in **SQLite** (`alerts.db`)
 - Expose alerts via:
